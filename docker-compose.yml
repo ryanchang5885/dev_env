@@ -3,7 +3,7 @@ services:
   wordpress:
     image: wordpress:latest # https://hub.docker.com/_/wordpress/
     ports:
-      - 127.0.0.1:80:80 # change ip if required
+      - 0.0.0.0:80:80 # change ip if required
     volumes:
       - ./config/php.conf.uploads.ini:/usr/local/etc/php/conf.d/uploads.ini
       - ./wp-app:/var/www/html # Full wordpress project
@@ -21,7 +21,7 @@ services:
   db:
     image: mysql:latest # https://hub.docker.com/_/mysql/ - or mariadb https://hub.docker.com/_/mariadb
     ports:
-      - 127.0.0.1:3306:3306 # change ip if required
+      - 0.0.0.0:3306:3306 # change ip if required
     command: [
         '--default_authentication_plugin=mysql_native_password',
         '--character-set-server=utf8mb4',
@@ -32,6 +32,20 @@ services:
     environment:
       MYSQL_DATABASE: wordpress
       MYSQL_ROOT_PASSWORD: password
+    networks:
+      - wordpress-network
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    container_name: phpmyadmin
+    depends_on:
+     - db
+    ports:
+     - 0.0.0.0:8080:80
+    environment:
+      PMA_ARBITRARY: 1
+      MYSQL_USERNAME: root
+      MYSQL_ROOT_PASSWORD: password
+      PMA_HOSTS: db;127.0.0.1;0.0.0.0
     networks:
       - wordpress-network
 networks:
