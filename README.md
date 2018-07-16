@@ -1,42 +1,51 @@
-# WPDC - Wordpress Docker Compose
+# UrDev Docker Compose
 
-#### Easy Wordpress development with Docker and Docker Compose
+#### Easy joint development via Docker and Docker Compose
 
 ## Starting a new project
 
 Make sure you have the latest versions of **Docker** and **Docker Compose** installed on your machine.
-Copy the **docker-compose.yml** file from this repository into a blank folder.
-
-In the file you may change the IP address (in case you run multiple containers) or the database from mysql to mariadb.
+Get the **docker-compose.yml** file from this repository into a blank folder.
 
 ##### Create containers
+Get ready for virutal machine or machine
+* Recommend OS: "Ubuntu 18.04 LTS"
+* Enable SSH with screen for development
 
-Open a terminal and *cd* to the folder you have the docker-compose.yml and run:
+```
+sudo apt-get update
+sudo apt install docker.io
+sudo apt install docker.compose
+```
+Get **docker-compose.yml** file from this repository 
+
+```
+mkdir urdev && cd urdev
+git clone https://github.com/ryanchang5885/dev_env.git
+sudo docker-compose up
+```
+Okay to go
+
 ```
 sudo docker-compose up
 ```
-
 This create 2 new folders beside your docker-compose.yml file.
-* **wp-data** - used to store and restore database dumps
 * **wp-app** - the location of your Wordpress application
+* **wp-data** - used to store and restore database dumps
 
-The containers are now build and running. You should be able to access the Wordpress installation with the configured IP in the browser address. For convenience you may add a new entry into your hosts file.
+The containers are now build and running. 
+You should be able to access the Wordpress installation with the configured IP in the browser address. For convenience you may add a new entry into your hosts file.
 
-##### Starting containers
-
-You can start the containers with the up command in daemon mode (by adding **-d** as a param) or by using the start command:
+##### Quick Start
+* Starting containers
 ```
 sudo docker-compose start
 ```
-
-##### Stopping containers
+* Stopping containers
 ```
 sudo docker-compose stop
 ```
-
-##### Remove containers
-
-To stop and remove all the containers use the **down** command
+* Remove containers
 ```
 sudo docker-compose down
 ```
@@ -68,16 +77,15 @@ sudo ./export.sh
 ```
 ---
 
-## Developing a Theme
-
+## Misc
+* Developing a Theme
 Configure the volume to load the theme in the container in the docker-compose.yml
 
 ```
 volumes:
   - ./theme-name/trunk/:/var/www/html/wp-content/themes/theme-name
 ```
-
-## Developing a Plugin
+* Developing a Plugin
 
 Configure the volume to load the plugin in the container in the docker-compose.yml
 
