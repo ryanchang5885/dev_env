@@ -36,7 +36,6 @@ services:
       - wordpress-network
   phpmyadmin:
     image: phpmyadmin/phpmyadmin
-    container_name: phpmyadmin
     depends_on:
      - db
     ports:
